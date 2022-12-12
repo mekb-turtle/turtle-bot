@@ -1,0 +1,13 @@
+{
+  "name": "autorole",
+  "main": "src/index.js",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "mekb",
+  "dependencies": {
+    "discord.js": "^14.3.0",
+    "dotenv": "^16.0.2"
+  }
+}

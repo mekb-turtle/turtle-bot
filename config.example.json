@@ -1,0 +1,20 @@
+{
+	"autoRoles": [
+		{
+			"guildID": "1", "roleID": "2"
+		}
+	],
+	"roleMenus": [
+		{
+			"guildID": "1",
+			"channelID": "3",
+			"message": { "content": "<:ping:772264421224874065> __Enable or disable pings__" },
+			"onlyOne": false,
+			"roles": [
+				{ "id": "4", "emoji": "👑", "style": 2 },
+				{ "id": "5", "emoji": "💀", "style": 2 }, 
+				{ "id": "6", "emoji": "🐢", "style": 2 }
+			]
+		}
+	]
+}

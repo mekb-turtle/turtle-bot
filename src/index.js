@@ -62,6 +62,51 @@ client.once("ready", async () => {
 			console.error(err);
 		}
 	}
+	client.on("interactionCreate", async (i) => {
+		try {
+			if (i.user.bot || !i.guild || !i.member) return;
+			if (i.isButton()) {
+				let id = i.customId;
+				if (!id.startsWith("rm")) return;
+				for (let j in roleMenus) {
+					let r = roleMenus[j];
+					if (r.guildID != i.guild.id) continue;
+					let pre = "rm" + r.id + "_";
+					if (!id.startsWith(pre)) continue;
+					let c = false;
+					let roleID = id.substring(pre.length);
+					let text = "";
+					for (let k in r.roles) {
+						if (r.roles[k].id == roleID) {
+							c = true;
+							if (!r.onlyOne) break;
+						} else if (r.onlyOne) {
+							if (i.member.roles.cache.has(r.roles[k].id)) {
+								await i.member.roles.remove(r.roles[k].id);
+								text += `Removed <@&${r.roles[k].id}> role\n`;
+							}
+						}
+					}
+					if (!c) break;
+					let has = i.member.roles.cache.has(roleID);
+					await i.member.roles[has ? "remove" : "add"](roleID);
+					text += `${(has ? "Removed" : "Added")} <@&${roleID}> role`;
+					await i.reply({
+						ephemeral: true,
+						content: text,
+						allowedMentions: {
+							users: [],
+							roles: [],
+							repliedUser: false
+						}
+					});
+					break;
+				}
+			}
+		} catch (err) {
+			console.error(err);
+		}
+	});
 	client.on("guildMemberAdd", async (g) => {
 		await updateAutoRole(g);
 	});
